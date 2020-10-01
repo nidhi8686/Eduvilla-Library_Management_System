@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>SignUp-Library Management System</title>
+</head>
+<body style="background-image: url('images/signin.jpg');background-size: cover;">
+    <div class="d-flex align-items-center" style="height:100vh">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4 p-0 rounded-lg">
+                    <div class="card bg-trans text-center mx-5">
+                        <div class="card-body">
+                            <h1>Eduvilla-SignUp</h1>
+                            <form class="signup-form">
+                                <input type="text" name="fname" class="form-control w-75 ml-5 mt-3" placeholder="Firstname" autocomplete="off"><br>
+                                <input type="text" name="lname" class="form-control w-75 ml-5" placeholder="Lastname" autocomplete="off"><br>
+                                <input type="text" name="address" class="form-control w-75 ml-5" placeholder="Address" autocomplete="off"><br>
+                                <select class="form-control w-75 ml-5">
+                                    <option>Select</option>
+                                    <option value="student" name="student">Student</option>
+                                    <option value="teacher" name="teacher">Teacher</option>
+                                </select><br>
+                                <input type="date" name="regdate" class="form-control w-75 ml-5" value="today"><br>
+                                <input type="email" name="email" class="form-control w-75 ml-5 email" placeholder="Email"><br>
+                                <input type="password" name="password1" class="form-control w-75 ml-5" placeholder="Password"><br>
+                                <input type="password" name="password2" class="form-control w-75 ml-5" placeholder="Confirm Password"><br>
+                                <button class="btn btn-success w-75" type="submit">Sign up</button><br>
+                                <h3>OR</h3>
+                                <p class="p-0 m-0">Already have an account? <a href="/" class=" text-primary">Signin</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4"></div>
+            </div>
+        </div>
+    </div>
+    <p class="res"></p>
+    <script>
+        $(document).ready(function(){
+            $(".signup-form").submit(function(e){
+                e.preventDefault();
+                //var email = $(".email").val();
+                $.ajax({
+                    type:"POST",
+                    url:'/signup',
+                    data: new FormData(this),
+                    cache: false,
+                   // contentType: false,
+                    processData: false,
+                    success : function(response){
+                             $(".res").html(response);
+                     }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
