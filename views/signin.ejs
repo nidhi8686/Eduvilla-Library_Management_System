@@ -14,26 +14,53 @@
     <div class="d-flex align-items-center" style="height:100vh">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4 p-0 rounded-lg">
+                <div class="col-lg-4 col-md-2 col-sm-3"></div>
+                <div class="col-lg-4 col-md-8 col-sm-6 p-0 rounded-lg">
                     <div class="card bg-trans text-center mx-5 pt-5">
                         <div class="card-body">
-                            <h1>Eduvilla-SignIn</h1>
-                            <form>
-                                <input type="email" name="email" class="form-control w-75 ml-5 mt-5" placeholder="Email"><br>
-                                <input type="password" name="password" class="form-control w-75 ml-5" placeholder="Password"><br>
-                                <button class="btn btn-success w-75" type="submit">Sign in</button><br>
-                                <a href="#" class="text-dark">Forgot Password?</a>
+                            <h3>Eduvilla-SignIn</h3>
+                            <form class="form-signin">
+                                <input type="email" name="email" class="form-control mt-5 email" placeholder="Email"><br>
+                                <input type="password" name="password" class="form-control password" placeholder="Password"><br>
+                                <p class="res text-danger"></p>
+                                <button class="btn btn-success w-100" type="submit">Sign in</button>
+                                <a href="#" class="text-dark">Forgot Password?</a><br>
                                 <h3>OR</h3>
                                 <p>Don't have an account? <a href="/signup" class=" text-primary">Signup</a></p>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="col-lg-4 col-md-2 col-sm-3"></div>
             </div>
         </div>
     </div>
-    
+    <script>
+        $(document).ready(function(){
+            $('.form-signin').submit(function(e){
+                e.preventDefault();
+                var email=$(".email").val();
+                var password=$(".password").val();
+                $.ajax({
+                    type:"POST",
+                    url :'/',
+                    data:{
+                        email:email,
+                        password:password
+                    },
+                    success: function(response)
+                    {
+                        if(response.trim()=="Successlogin")
+                        {
+                            window.location='/Dashboard'
+                        }
+                        else{
+                            $(".res").html(response);
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 </html>

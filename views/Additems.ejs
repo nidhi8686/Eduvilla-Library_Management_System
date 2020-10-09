@@ -1,0 +1,126 @@
+<%- include('header') -%>
+
+<span class="d-flex pt-3 pl-3"><a href="/Dashboard" style="text-decoration: none;">Dashboard</a>><p class="text-muted">Admin</p>><p class="text-muted">Add Items</p></span>
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-1 p-0"></div>
+        <div class="col-10 bg-white shadow-sm rounded p-0">
+            <h3 class="m-3">Add item</h3>
+            <form class="form">
+            <div class="row mx-1">
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Book ID *</label>
+                    <input type="text" name="bookid" class="form-control bg-light py-2 border-0 shadow-sm" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Title *</label>
+                    <input type="text" name="title" class="form-control bg-light border-0 shadow-sm" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Author *</label>
+                    <input type="text" name="author" class="form-control bg-light border-0 shadow-sm" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Publisher *</label>
+                    <input type="text" name="publisher" class="form-control bg-light border-0 shadow-sm" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Price *</label>
+                    <input type="text" name="price" class="form-control bg-light border-0 shadow-sm" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Availability *</label>
+                    <input type="text" name="availability" class="form-control bg-light border-0 shadow-sm" required>
+                </div>
+                </div>
+                <div class="row my-3 mx-1">
+                    <div class="col-md-4 col-sm-12">
+                        <!-- <label>Book Image *</label>
+                        <input type="file" name="bookpic" class="bg-light mb-3 py-2 shadow-sm w-75" required> -->
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 col-sm-12 mt-md-4">
+                        <button class="btn btn-primary mx-2" type="submit">Add item</button>
+                        <button class="btn btn-danger" type="reset">Reset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-1 p-0"></div>
+    </div>
+</div>
+<div class="container-fluid p-0 px-4 mb-5">
+    <div class="row mx-1">
+        <div class="col-12 bg-white rounded shadow-sm p-0 overflow-auto">
+            
+            <div class="container mt-3">
+                <div class="d-flex"><h3 class="mb-2">Books</h3>
+                    <form class="ml-auto">
+                        <input class="form-control-sm mr-md-2 py-3 bg-light border-0 shadow-sm w-50" placeholder="Search">
+                        <button class="btn btn-outline-dark btn-sm mb-1" type="submit">Search</button>
+                      </form></div>
+            <table class="table table-striped">
+                
+
+                <tr>
+                    <th>#</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Availability</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>--</td>
+                    <td>Computer Networks</td>
+                    <td>Todd Lamle</td>
+                    <td>Surya</td>
+                    <td><h5><span class="badge badge-success p-2">Yes</span></h5></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>--</td>
+                    <td>Computer System Architecture</td>
+                    <td>Todd Lamle</td>
+                    <td>Surya Publications</td>
+                    <td><h5><span class="badge badge-danger p-2">No</span></h5></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>--</td>
+                    <td>Computer System Architecture</td>
+                    <td>Todd Lamle</td>
+                    <td>Surya Publications</td>
+                    <td><h5><span class="badge badge-success p-2">Yes</span></h5></td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+      $(".form").submit(function(e){
+          e.preventDefault();
+          $.ajax({
+              type : "POST",
+              url : '/Dashboard/bookform',
+              data: new FormData(this),
+             // enctype: 'multipart/form-data',
+              cache: false,
+              contentType: false,
+              processData: false,
+              success : function(response){
+                alert("hello");
+              }
+          })
+      })
+    })
+</script>
+</body>
+</html>

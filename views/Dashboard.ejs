@@ -1,0 +1,174 @@
+<%- include('header') -%>
+                <div class="container-fluid">
+                    <span class="d-flex py-3"><a href="/Dashboard" style="text-decoration: none;">Dashboard</a>><p class="text-muted">Admin</p></span>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="container-fluid">
+                                <div class="row mb-md-4 mb-sm-2">
+                                    <div class="col-lg-6 col-md-6 text-center">
+                                        <div class="bg-white shadow-sm rounded-lg">
+                                            <i class="fas fa-user-graduate mt-4 text-primary" style="font-size:48px;"></i>
+                                            <h4 class="my-2">1234</h4>
+                                            <p class="mb-2 font-small">Total Students</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-center">
+                                        <div class="bg-white shadow-sm rounded-lg">
+                                            <i class="fas fa-book mt-4 text-pink" style="font-size:48px;"></i>
+                                            <h4 class="my-2">1234</h4>
+                                            <p class="mb-2 font-small">Total Books</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 text-center">
+                                        <div class="bg-white shadow-sm rounded-lg">
+                                            <i class="fas fa-check-circle mt-4 text-success" style="font-size:48px;"></i>
+                                            <h4 class="my-2">1234</h4>
+                                            <p class="mb-2 font-small">Total Available</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-center">
+                                        <div class="bg-white shadow-sm rounded-lg">
+                                            <i class="fas fa-arrow-right mt-4 text-danger" style="font-size:48px;"></i>
+                                            <h4 class="my-2">1234</h4>
+                                            <p class="mb-2 font-small">Total Issued</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
+                            <div class="container-fluid bg-white rounded-lg shadow-sm" style="overflow:hidden">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="pt-3">Books</h3>
+                                    <h3>
+                                        <div class="dropdown dropleft">
+                                            <a href="#" class="text-muted nav-link" data-toggle="dropdown">...</a>
+                                            <div class="dropdown-menu p-0 m-0">
+                                                <a href="#" class="dropdown-item"><i class="fas fa-redo-alt text-success mr-2"></i>Refresh</a>
+                                                <a href="#" class="dropdown-item"><i class="far fa-edit text-warning mr-2"></i>Edit</a>
+                                                <a href="#" class="dropdown-item"><i class="fas fa-times text-danger mr-2"></i>Close</a>
+                                            </div>
+                                        </div>
+                                    </h3>
+                                </div>
+                                <div id="piechart"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
+                            <div class="container-fluid bg-white rounded-lg shadow-sm" style="height: 320px;overflow-y: scroll;overflow-x: hidden;">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="pt-3">Notifications</h3>
+                                    <h3>
+                                        <div class="dropdown">
+                                            <a href="#" class="text-muted nav-link" data-toggle="dropdown">...</a>
+                                            <div class="dropdown-menu p-0 m-0">
+                                                <a href="#" class="dropdown-item"><i class="fas fa-redo-alt text-success mr-2"></i>Refresh</a>
+                                                <a href="#" class="dropdown-item"><i class="far fa-edit text-warning mr-2"></i>Edit</a>
+                                                <a href="#" class="dropdown-item"><i class="fas fa-times text-danger mr-2"></i>Close</a>
+                                            </div>
+                                        </div>
+                                    </h3>
+                                </div>
+                                <div class="container-fluid">
+                                    <div class="row  mt-3">
+                                        <div class="col-12">
+                                            <span class="badge badge-pill badge-primary text-light p-2">19 June,2019</span>
+                                            <p class="font-small">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge badge-pill badge-success text-light p-2">19 June,2019</span>
+                                            <p class="font-small">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge badge-pill badge-danger text-light p-2">19 June,2019</span>
+                                            <p class="font-small">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge badge-pill badge-warning text-light p-2">19 June,2019</span>
+                                            <p class="font-small">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0 px-4">
+                    <div class="row mb-4">
+                        <div class="col-12 p-0 bg-white shadow-sm rounded-lg overflow-auto">
+                            <div class="d-flex"><h3 class="m-3">Students</h3>
+                            <form class="form-inline my-2 my-lg-0 ml-auto mr-4">
+                                <input class="form-control-sm mr-2 py-3 w-50 my-2 bg-light border-0 shadow-sm" placeholder="Search">
+                                <button class="btn btn-outline-dark btn-sm" type="submit">Search</button>
+                              </form></div>
+                            <div class="text-center mx-3">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th class="p-2">#</th>
+                                    <th class="p-2">Name</th>
+                                    <th class="p-2">E-mail</th>
+                                    <th class="p-2">Book ID</th>
+                                    <th class="p-2">Issued Date</th>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">1</td>
+                                    <td class="p-2">Nidhi Goyal</td>
+                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
+                                    <td class="p-2">51</td>
+                                    <td class="p-2">1/10/2020</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">2</td>
+                                    <td class="p-2">Nidhi Goyal</td>
+                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
+                                    <td class="p-2">51</td>
+                                    <td class="p-2">1/10/2020</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">3</td>
+                                    <td class="p-2">Nidhi Goyal</td>
+                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
+                                    <td class="p-2">51</td>
+                                    <td class="p-2">1/10/2020</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">4</td>
+                                    <td class="p-2">Nidhi Goyal</td>
+                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
+                                    <td class="p-2">51</td>
+                                    <td class="p-2">1/10/2020</td>
+                                </tr>
+                            </table>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        // Draw the chart and set the chart values
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Available', 7],
+          ['Issued', 3],
+        ]);
+        
+          // Optional; add a title and set the width and height of the chart
+          var options = {'width':300,'height':260};
+          // 
+          // Display the chart inside the <div> element with id="piechart"
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+        </script>
+</body>
+</html>

@@ -1,3 +1,69 @@
 .bg-trans{
     background-color: rgba(255, 255, 255, 0.7);
 }
+.bg-sidebar{
+    background-color:#02354E;
+}
+.text-pink{
+    color:#ff7e67;
+}
+.bg-pink{
+    background-color:#ff7e67;
+}
+.font-monts{
+    font-family: 'Montserrat', sans-serif;
+}
+.font-nice{
+    font-family: 'Sansita Swashed', cursive;
+}
+.rounded{
+    border-radius: 30px 30px;
+}
+.profile{
+    width:40px;
+    height:40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.font-sm{
+    font-size: small;
+}
+.font-lg{
+    font-size: larger;
+}
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #637373; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #838383; 
+}
+.height-sidebar
+{
+    height: 55px;
+}
+.table-style{
+    border: 2px solid salmon;
+}
+
+@media(max-width:1300px)
+{
+    .font-small{
+        font-size: small;
+    }
+}
+@media(max-width:992px){
+    .height-sidebar
+    {
+        height: 62px;
+    }
+}

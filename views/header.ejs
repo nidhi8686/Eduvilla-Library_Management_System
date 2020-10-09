@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script> 
+    <link rel="stylesheet" href="css/style.css">
+    <title>DashBoard-Admin</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-1 col-sm-1 col-2 text-light bg-sidebar p-0">
+                <div class="container-fluid bg-pink p-0 height-sidebar d-flex justify-content-center align-items-center">
+                    <img src="images/library.jpg" class="img-library" width="55px"><h2 class="text-light font-nice d-none d-lg-inline ml-1">Eduvilla</h2>
+                </div>
+                <div class="d-flex flex-column justify-content-center align-items-md-start align-items-sm-center">
+                <a href="/Dashboard" class="nav-link text-light mt-4 font-nice" data-toggle="tooltip" data-placement="right" title="Dashboard"><i class="fas fa-tachometer-alt mr-2 text-pink" style="font-size:24px"></i><span class="d-none d-lg-inline">Dashboard</span></a>
+                <a href="/Dashboard/additems" class="nav-link text-light font-nice" data-toggle="tooltip" data-placement="right" title="Add item"><i class="fas fa-plus-circle mr-2 text-pink" style="font-size:24px"></i><span class="d-none d-lg-inline">Add item</span></a>
+                <a href="#" class="nav-link text-light font-nice" data-toggle="tooltip" data-placement="right" title="Issued item"><i class="fas fa-arrow-right mr-2 text-pink" style='font-size:24px'></i><span class="d-none d-lg-inline">Issued item</span></a>
+                <a href="#" class="nav-link text-light font-nice" data-toggle="tooltip" data-placement="right" title="Students"><i class="fas fa-user-graduate mr-2 text-pink" style="font-size:24px;"></i><span class="d-none d-lg-inline">Students</span></a>
+                <a href="#" class="nav-link text-light font-nice" data-toggle="tooltip" data-placement="right" title="Stocks"><i class='fas fa-chart-bar mr-2 text-pink' style='font-size:24px'></i><span class="d-none d-lg-inline">Stocks</span></a>
+                <a href="#" class="nav-link text-light font-nice" data-toggle="tooltip" data-placement="right" title="Supplier"><i class="fas fa-user-alt mr-2 text-pink" style='font-size:24px'></i><span class="d-none d-lg-inline">Supplier</span></a>
+                </div>
+          </div>
+            <div class="col-lg-10 col-md-11 col-sm-11 col-10 p-0 bg-light">
+                <div class="container-fluid m-0 p-0">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+                    <a class="navbar-brand font-nice" href="#"><span class="d-lg-none d-md-block font-lg m-0">Eduvilla</span></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                      <ul class="navbar-nav ml-auto">
+                          <li class="mt-2 mr-2">
+                            Vishesh Goyal
+                          </li>
+                        <li class="nav-item dropdown d-flex"><div class="profile"><img src="images/profile.webp" width="40px"></div>
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                            </a>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#"><i class="fas fa-user-alt mr-2" style='font-size:18px'></i>Profile</a>
+                              <a class="dropdown-item" href="#"><i class="fas fa-cogs mr-2" style='font-size:18px'></i>Settings</a>
+                              <a class="dropdown-item" href="/Dashboard/logout"><i class="fas fa-sign-out-alt mr-2" style='font-size:18px'></i>Logout</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="far fa-envelope" style='font-size:18px'></i></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#"><i class="far fa-bell" style='font-size:18px'></i></a>
+                        </li>
+                      </ul>
+                      <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2 ml-lg-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </nav>
+                </div>
+
+            

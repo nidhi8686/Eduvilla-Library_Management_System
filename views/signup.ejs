@@ -14,52 +14,82 @@
     <div class="d-flex align-items-center" style="height:100vh">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4 p-0 rounded-lg">
+                <div class="col-lg-4 col-md-2"></div>
+                <div class="col-lg-4 col-md-8 p-0 rounded-lg">
                     <div class="card bg-trans text-center mx-5">
                         <div class="card-body">
-                            <h1>Eduvilla-SignUp</h1>
+                            <h3>Eduvilla-SignUp</h3>
                             <form class="signup-form">
-                                <input type="text" name="fname" class="form-control w-75 ml-5 mt-3" placeholder="Firstname" autocomplete="off"><br>
-                                <input type="text" name="lname" class="form-control w-75 ml-5" placeholder="Lastname" autocomplete="off"><br>
-                                <input type="text" name="address" class="form-control w-75 ml-5" placeholder="Address" autocomplete="off"><br>
-                                <select class="form-control w-75 ml-5">
-                                    <option>Select</option>
+                                <input type="text" name="fname" class="form-control mt-3 fname" placeholder="Firstname" autocomplete="off" required><br>
+                                <input type="text" name="lname" class="form-control lname" placeholder="Lastname" autocomplete="off" required><br>
+                                <input type="text" name="address" class="form-control address" placeholder="Address" autocomplete="off" required><br>
+                                <select class="form-control select" required>
+                                    <option value="">Select</option>
                                     <option value="student" name="student">Student</option>
                                     <option value="teacher" name="teacher">Teacher</option>
                                 </select><br>
-                                <input type="date" name="regdate" class="form-control w-75 ml-5" value="today"><br>
-                                <input type="email" name="email" class="form-control w-75 ml-5 email" placeholder="Email"><br>
-                                <input type="password" name="password1" class="form-control w-75 ml-5" placeholder="Password"><br>
-                                <input type="password" name="password2" class="form-control w-75 ml-5" placeholder="Confirm Password"><br>
-                                <button class="btn btn-success w-75" type="submit">Sign up</button><br>
+                                <input type="date" name="regdate" class="form-control date" value="today" required><br>
+                                <input type="email" name="email" class="form-control email" placeholder="Email" required><br>
+                                <input type="password" name="password1" class="form-control pass1" placeholder="Password" required><br>
+                                <input type="password" name="password2" class="form-control pass2" placeholder="Confirm Password" required>
+                                <p class="msg text-danger p-0 m-0"></p><br>
+                                <button class="btn btn-success w-100" type="submit">Sign up</button><br>
                                 <h3>OR</h3>
                                 <p class="p-0 m-0">Already have an account? <a href="/" class=" text-primary">Signin</a></p>
+                                <p class="res"></p>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="col-lg-4 col-md-2"></div>
             </div>
         </div>
     </div>
-    <p class="res"></p>
+    
     <script>
         $(document).ready(function(){
             $(".signup-form").submit(function(e){
                 e.preventDefault();
-                //var email = $(".email").val();
-                $.ajax({
-                    type:"POST",
-                    url:'/signup',
-                    data: new FormData(this),
-                    cache: false,
-                   // contentType: false,
-                    processData: false,
-                    success : function(response){
-                             $(".res").html(response);
-                     }
-                })
+                    var pass1 = $(".pass1").val();
+                    var pass2= $(".pass2").val();
+                    console.log(pass1+" "+pass2)
+                    if(pass1==pass2)
+                    {
+                        var fname=$(".fname").val();
+                        var lname=$(".lname").val();
+                        var address=$(".address").val();
+                        var select = $('.select').find(":selected").val();
+                        var date=$('.date').val();
+                        var email=$('.email').val();
+                        $.ajax({
+                            type:"POST",
+                            url:'/signup',
+                            data : {
+                                fname:fname,
+                                lname:lname,
+                                address:address,
+                                select :select,
+                                date:date,
+                                email:email,
+                                password:pass1
+                            },
+                            success : function(response){
+                                if(response.trim()=="Success")
+                                {
+                                   window.location="/";                     
+                                }
+                                else
+                                {
+                                     $(".res").html("error");
+                                }
+                                   
+                            } 
+                        })
+                    }
+                    else{
+                        $(".msg").html("Password doesn't match.");
+                    }
+                
             })
         })
     </script>
