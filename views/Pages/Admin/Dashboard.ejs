@@ -1,4 +1,18 @@
-<%- include('header') -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script> 
+    <link rel="stylesheet" href="/css/style.css">
+    <title>DashBoard-Admin</title>
+</head>
+<%- include('../../partials/Admin/header.ejs') -%>
                 <div class="container-fluid">
                     <span class="d-flex py-3"><a href="/Dashboard" style="text-decoration: none;">Dashboard</a>><p class="text-muted">Admin</p></span>
                     <div class="row">
@@ -112,34 +126,15 @@
                                     <th class="p-2">Book ID</th>
                                     <th class="p-2">Issued Date</th>
                                 </tr>
-                                <tr>
-                                    <td class="p-2">1</td>
-                                    <td class="p-2">Nidhi Goyal</td>
-                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
-                                    <td class="p-2">51</td>
-                                    <td class="p-2">1/10/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">2</td>
-                                    <td class="p-2">Nidhi Goyal</td>
-                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
-                                    <td class="p-2">51</td>
-                                    <td class="p-2">1/10/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">3</td>
-                                    <td class="p-2">Nidhi Goyal</td>
-                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
-                                    <td class="p-2">51</td>
-                                    <td class="p-2">1/10/2020</td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2">4</td>
-                                    <td class="p-2">Nidhi Goyal</td>
-                                    <td class="p-2">goyalnidhi8686@gmail.com</td>
-                                    <td class="p-2">51</td>
-                                    <td class="p-2">1/10/2020</td>
-                                </tr>
+                                <% for(var i=0;i<studentdata.length;i++){ %>
+                                    <% if(studentdata[i].type=="student") { %>
+                                    <tr>
+                                        <td><%= i+1 %></td>
+                                        <td><%= studentdata[i].firstname %> <%= studentdata[i].lastname %></td>
+                                        <td><%= studentdata[i].email %></td>
+                                        <td><%= studentdata[i].bookid %></td>
+                                    </tr>
+                                <% }} %>
                             </table>
                         </div>
                         </div>

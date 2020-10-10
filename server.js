@@ -1,28 +1,27 @@
 const express=require('express')
 const bodyparser=require('body-parser');
-const mysql=require('mysql')
 const session=require('express-session');
+const fileUpload = require('express-fileupload')
 const app=express();
 
-app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static("public")); 
+app.use(bodyparser.urlencoded({extended:true}));
+
 app.use(bodyparser.json())
+app.use(fileUpload());
+
 
 app.use(session({
     secret: 'ssshhhhh',
     saveUninitialized: true,
     resave: true
 }))
-app.use('/Dashboard',require('./routes/admin'));
+
+app.use('/dash',require('./routes/admin'));
 
 app.set("view engine","ejs");
 
-const db=mysql.createConnection({
-    host :"localhost",
-    user : "root",
-    password:"",
-    database :"library management system"
-})
+const db=require('./config/dbConnect');
 
 db.connect((err)=>{
     if(err)
@@ -43,7 +42,13 @@ app.get('/signup',(req,res)=>{
 app.get('/Dashboard',(req,res)=>{
     // if(req.session.user)
     // {
-        res.render('Dashboard');
+        var getData='SELECT * FROM members INNER JOIN books ON members.id= books.bookid';
+
+        db.query(getData,(err,result)=>{
+            if(err) throw err;
+            res.render('./Pages/Admin/Dashboard.ejs',{studentdata : result});
+        })
+        
     //}
    
 })
@@ -90,9 +95,11 @@ app.post('/signup',(req,res)=>{
 })
 
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT,()=>{
-//     console.log(`server running at ${PORT}`);
-// })
 
-app.listen('3000','192.168.1.6');
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>{
+    console.log(`server running at ${PORT}`);
+})
+
+//app.listen('3000','192.168.1.6');
