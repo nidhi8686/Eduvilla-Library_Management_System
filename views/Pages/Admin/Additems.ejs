@@ -7,20 +7,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js'></script> 
     <link rel="stylesheet" href="/css/style.css">
-    <title>DashBoard-Add items</title>
+    <title>Eduvilla-Add items</title>
 </head>
-<%- include('../../partials/Admin/header.ejs') -%>
+<%- include('../../partials/Admin/sidebar.ejs') -%>
+<%- include('../../partials/Admin/navbar.ejs') -%>
 
-<span class="d-flex pt-3 pl-3"><a href="/Dashboard" style="text-decoration: none;">Dashboard</a>><p class="text-muted">Admin</p>><p class="text-muted">Add Items</p></span>
+<span class="d-flex pt-3 pl-3"><a href="/Admin/Dashboard" style="text-decoration: none;">Dashboard</a>><p class="text-muted">Admin</p>><p class="text-muted">Add Items</p></span>
+<div class="container-fluid position-absolute additem_top" style="z-index:100;">
+    <div class="row">
+      
+      <div class="col-12 float-right">
+        <div class="float-right notification" style="width:fit-content;">
+          
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col-1 p-0"></div>
         <div class="col-10 bg-white shadow-sm rounded p-0">
-       <div class="d-flex flex-wrap"><h3 class="m-3">Add item</h3>
-            <h4 class="done ml-auto mr-5 mt-3 text-success"></h4></div>
+       <h3 class="m-3">Add item</h3>
             <form class="form">
             <div class="row mx-1">
                 <div class="col-lg-4 col-md-6 my-1">
@@ -47,13 +60,17 @@
                     <label>Availability *</label>
                     <input type="text" name="availability" class="form-control bg-light border-0 shadow-sm availability" required>
                 </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Category *</label>
+                    <input type="text" name="category" class="form-control bg-light border-0 shadow-sm category" required>
+                </div>
+                <div class="col-lg-4 col-md-6 my-1">
+                    <label>Book Image *</label>
+                    <input type="file" name="bookpic" class="bg-light mb-3 py-2 shadow-sm w-75 image" required>
+                </div>
                 </div>
                 <div class="row my-3 mx-1">
-                    <div class="col-md-4 col-sm-12">
-                        <label>Book Image *</label>
-                        <input type="file" name="bookpic" class="bg-light mb-3 py-2 shadow-sm w-75 image" required>
-                        <h5 class="res text-danger"></h5>
-                    </div>
+                    <div class="col-md-4"></div>
                     <div class="col-md-4"></div>
                     <div class="col-md-4 col-sm-12 mt-md-4">
                         <button class="btn btn-primary mx-2" type="submit">Add item</button>
@@ -82,6 +99,7 @@
                     <th>Title</th>
                     <th>Author</th>
                     <th>Publisher</th>
+                    <th>Category</th>
                     <th>Availability</th>
                 </tr>
                <% for(var i=0;i<bookdata.length;i++){ %>
@@ -91,6 +109,7 @@
                     <td><%= bookdata[i].title %></td>
                     <td><%= bookdata[i].author %></td>
                     <td><%= bookdata[i].publisher %></td>
+                    <td><%= bookdata[i].category %></td>
                     <% if( bookdata[i].availability == "Yes"){ %>
                         <td><h5><span class="badge badge-success p-2">Yes</span></h5></td>
                         <% } else { %>
@@ -107,35 +126,36 @@
 </div>
 </div>
 </div>
+<%- include('../../partials/Student/realchat.ejs') -%>
 <script>
     $(document).ready(function(){
       $(".form").submit(function(e){
           e.preventDefault();
-          var bookid=$('.book').val();
-          var title=$('.title').val();
-          var author=$('.author').val();
-          var publisher=$('.publisher').val();
-          var price=$('.price').val();
-          var availability=$('.availability').val();
-          var image=$('.image').val();
           $.ajax({
 
             type: "POST",
-            url: "/dash/bookform",
+            url: "/Admin/bookform",
             data: new FormData(this),
             enctype: 'multipart/form-data',
             contentType: false,
             processData: false,
             cache: false,
               success : function(response){
-                  if(response=="Please Upload image")
-                  {
-                      $('.res').html(response);
-                  }
-                  else
-                  {
-                    $('.done').html(response);
-                  }
+                if (response.trim() == "success") {
+              $(".notification").html(
+                " <div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: rgb(33, 194, 33);'><i class='fa fa-check-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #32CD32'><h5 class='m-0'>Success</h5><p class='text-nowrap'>Added successfully !!</p></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            } else {
+              $(".notification").html(
+                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Error</h5><p class='text-nowrap'>Something went wrong!</p></div></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            }
               }
           })
       })

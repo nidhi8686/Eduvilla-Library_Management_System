@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script> 
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Eduvilla-Issued Items</title>
+</head>
+<%- include('../../partials/Admin/sidebar.ejs') -%>
+<%- include('../../partials/Admin/navbar.ejs') -%>
+<div class="container my-5">
+        <div class="row bg-white shadow-sm">
+            <h3 class="ml-3 my-3">Students</h3>
+            <div class="col-12 overflow-auto">
+                <table class="table table-striped">
+                    <tr>
+                        <th class="p-2">#</th>
+                        <th>Profile</th>
+                        <th class="p-2">Name</th>
+                        <th class="p-2">Address</th>
+                        <th class="p-2">E-mail</th>
+                        <th class="p-2">Registration Date</th> 
+                    </tr>
+                    <% for(var i=0;i<members.length;i++){ %>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><img class="profile mr-2" src="<%= members[i].profilepic %>"></td>
+                        <td style="vertical-align: middle;"><%= members[i].firstname %> <%= members[i].lastname %></td>
+                        <td style="vertical-align: middle;"><%= members[i].address %></td>
+                        <td style="vertical-align: middle;"><%= members[i].email %></td>
+                        <td style="vertical-align: middle;"><%= members[i].regisdate.getDate() %>/<%= members[i].regisdate.getMonth()+1 %>/<%= members[i].regisdate.getFullYear() %></td>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <div class="row bg-white shadow-sm">
+            <h3 class="ml-3 my-3">Issued Books</h3>
+            <div class="col-12 overflow-auto">
+                <table class="table table-striped">
+                    <tr>
+                        <th class="p-2">#</th>
+                        <th class="p-2">Image</th>
+                        <th class="p-2">Book</th>
+                        <th class="p-2">E-mail</th>
+                        <th class="p-2">Issued Date</th>
+                        <th class="p-2">Due Date</th>
+                        <th class="p-2">Fine</th>
+                        <th class="p-2">Fine Status</th>
+                    </tr>
+                    <% for(var i=0;i<issuedbooks.length;i++){ %>
+                    <tr>
+                        <td><%= i+1 %></td>
+                        <td><img src="<%= issuedbooks[i].imagepath %>" width="70px"></td>
+                        <td style="vertical-align: middle;"><b><%= issuedbooks[i].title %> </b><br><%= issuedbooks[i].author %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].email %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].issuedate %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].duedate %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].fine %>₹</td>
+                        <% if(issuedbooks[i].finestatus =="paid"){ %>
+                            <td style="vertical-align: middle;"><p class="badge badge-success p-2">Paid</p></td>
+                          <% }else{ %>
+                                <% if(issuedbooks[i].fine > 0){ %>
+                                  <td style="vertical-align: middle;"><p class="badge badge-danger p-2">Not paid</p></td>
+                                <% }else{ %>
+                                  <td style="vertical-align: middle;"><p class="badge badge-success p-2">No Fine</p></td>
+                                <% } %>
+                          <% } %>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<%- include('../../partials/Student/realchat.ejs') -%>
+</body>
+</html>

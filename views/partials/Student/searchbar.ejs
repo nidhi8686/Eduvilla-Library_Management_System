@@ -1,0 +1,87 @@
+<div class="container mt-5">
+  <form>
+    <div class="row">
+      <div class="col-md-6 col-sm-8 mb-4">
+        <div class="input-group shadow-sm">
+          <input type="text" placeholder="Type book name or author"
+            class="form-control border-0 py-2 search" data-toggle="dropdown" autocomplete="off">
+
+            <div class="dropdown-menu dropdown-menu-left w-100 search-items">
+              <!-- <div class="dropdown-header">
+                 
+              </div> -->
+          </div>
+            
+
+
+
+
+          <div class="input-group-append">
+            <button class="border-0 bg-white rounded-sm px-3 search"><i class="fas fa-search text-muted"></i></button>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-3 col-sm-4">
+        <select class="form-control border-0 py-2 shadow-sm category">
+          <option>Category</option>
+          <option>Computer Science Engineering</option>
+          <option>Electrical Engineering</option>
+          <option>Mechanical Engineering</option>
+          <option>Electronics Engineering</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+  $(document).ready(function () {
+    $(".search").on("input", function () {
+      $(".search-items").css({display: "block"});
+      $(".search-items").html("");
+      var myvar = setTimeout(function () {
+        var value = $(".search").val();
+        var category=$(".category").val();
+        $.ajax({
+          type: "POST",
+          url: "/student/search",
+          data: {
+            value: value,
+            category:category
+          },
+          success: function (response) {
+           var list= document.createElement("ul");
+            list.style.listStyleType="none";
+            list.style.paddingLeft="8px";
+            response.forEach(element => {
+              var a= document.createElement("a");
+              var li= document.createElement("li");
+              li.classList.add('list-item');
+              li.setAttribute("bookid",element.bookid);
+              a.style.textDecoration="none";
+              li.innerHTML=element.title;
+              a.appendChild(li);
+              list.appendChild(a);
+
+              $(".search-items").html(list);
+            });
+          $(".list-item").each(function(){
+              $(this).click(function(){
+                var bookid=$(this).attr("bookid");
+                window.location='/student/bookissue/'+bookid;
+              }),
+              $(this).hover(function(){
+                $(this).css("cursor", "pointer");
+              })
+          })
+            
+          }
+        });
+      }, 2000);
+
+      setTimeout(function () {
+        clearTimeout(myvar);
+      }, 2000);
+    });
+  });
+</script>

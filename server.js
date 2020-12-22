@@ -3,6 +3,9 @@ const bodyparser=require('body-parser');
 const session=require('express-session');
 const fileUpload = require('express-fileupload')
 const app=express();
+const http=require('http').createServer(app);
+ 
+
 
 app.use(express.static("public")); 
 app.use(bodyparser.urlencoded({extended:true}));
@@ -17,7 +20,8 @@ app.use(session({
     resave: true
 }))
 
-app.use('/dash',require('./routes/admin'));
+app.use('/Admin',require('./routes/admin'));
+app.use('/student',require('./routes/Student'));
 
 app.set("view engine","ejs");
 
@@ -39,20 +43,6 @@ app.get('/signup',(req,res)=>{
     res.render('signup');
 })
 
-app.get('/Dashboard',(req,res)=>{
-    // if(req.session.user)
-    // {
-        var getData='SELECT * FROM members INNER JOIN books ON members.id= books.bookid';
-
-        db.query(getData,(err,result)=>{
-            if(err) throw err;
-            res.render('./Pages/Admin/Dashboard.ejs',{studentdata : result});
-        })
-        
-    //}
-   
-})
-
 app.post('/',(req,res)=>{
     var email=req.body.email;
     var password=req.body.password;
@@ -65,8 +55,12 @@ app.post('/',(req,res)=>{
         {
            req.session.user=result;
             var pass=result[0].password;
-            if(pass==password)
-            res.send("Successlogin");
+            var type=result[0].type;
+            name=result[0].firstname+" "+result[0].lastname;
+            if(pass==password && type=="teacher")
+            res.send("SuccessloginTeacher");
+            else if(pass==password && type=="student")
+            res.send("SuccessloginStudent");
             else
             res.send("Incorrect Password .");
         }
@@ -97,9 +91,23 @@ app.post('/signup',(req,res)=>{
 
 
 
+const io=require('socket.io')(http);
+
+io.on('connection',(socket)=>{
+    console.log("Connected");
+
+    socket.on('message',(msg)=>{
+
+        socket.broadcast.emit('message2',msg);
+    })
+})
+
+
+
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT,()=>{
+http.listen(PORT,()=>{
     console.log(`server running at ${PORT}`);
 })
 
-//app.listen('3000','192.168.1.6');
+//http.listen('3000','192.168.1.7');
