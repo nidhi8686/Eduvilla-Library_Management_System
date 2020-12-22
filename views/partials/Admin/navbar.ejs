@@ -1,0 +1,46 @@
+<div class="col-lg-10 col-md-11 col-sm-11 col-10 p-0 bg-light">
+  <div class="container-fluid m-0 p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+      <a class="navbar-brand font-nice" href="#"><span class="d-lg-none d-md-block font-lg m-0">Eduvilla</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <li class="mt-2 mr-2">
+            <% if(user){ %>
+
+            <%= user[0].firstname %> <%= user[0].lastname %>
+            <% } %>
+          </li>
+          <li class="nav-item dropdown d-flex">
+            <div class="profile"><img src="<%= user[0].profilepic %>" width="40px"></div>
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#"><i class="fas fa-user-alt mr-2" style='font-size:18px'></i>Profile</a>
+              <a class="dropdown-item" href="#"><i class="fas fa-cogs mr-2" style='font-size:18px'></i>Settings</a>
+              <a class="dropdown-item" href="/Admin/logout"><i class="fas fa-sign-out-alt mr-2"
+                  style='font-size:18px'></i>Logout</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="far fa-envelope" style='font-size:18px'></i>
+              <sup
+              class="position-relative" style="top:-10px;left: -6px;"><span
+                class="badge badge-pill badge-primary rounded-lg shadow-sm">4</span></sup></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><i class="far fa-bell" style='font-size:18px'></i>
+              <sup
+              class="position-relative" style="top:-10px;left: -8px;"><span
+                class="badge badge-pill badge-success rounded-lg shadow-sm">5</span></sup></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 ml-lg-2" type="search" placeholder="Search">
+          <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </div>

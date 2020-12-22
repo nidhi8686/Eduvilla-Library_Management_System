@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
+  <link type="text/css" rel="stylesheet" href="/css/magicscroll.css"/>
+  <script type="text/javascript" src="/js/magicscroll.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Dashboard-Student</title>
+  <style>
+  .search:focus{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .name:focus{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .email:focus{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+</style>
+</head>
+
+<body class="bg-light">
+
+<%- include('../../partials/Student/header.ejs') -%>
+<%- include('../../partials/Student/searchbar.ejs') -%>
+ 
+  <!-- recommended -->
+<div class="container">
+  <a href="#" class="nav-link text-dark font-weight-bold active p-0 mt-3">Recommended</a>
+	<div class="row">
+		<div class="MultiCarousel" data-items="2,3,5,6,8" data-slide="1" id="MultiCarousel"  data-interval="1000">
+            <div class="MultiCarousel-inner">
+                <% bookdata.forEach(function(data){ %>
+                    <div class="item issuebook" bookid="<%= data.bookid %>" availability="<%= data.availability %>" booktitle="<%= data.title %>" bookimage="<%= data.ImagePath %>" bookauthor="<%= data.author %>">
+                      <div class="pad15 rounded-lg shadow-sm">
+                        <img class="img-fluid mx-auto d-block" src="<%= data.ImagePath %>" width="100px" height="150px">
+                        <p class="m-0 my-2 text-center"><%= data.title %></p>
+                        <h6 class="m-0 text-center"><%= data.author %></h6>
+                      </div>
+                  </div>
+                <% }) %>
+            </div>
+            <button class="btn btn-primary leftLst"><</button>
+            <button class="btn btn-primary rightLst">></button>
+        </div>
+	</div>
+</div>
+
+
+
+
+<!-- last added -->
+<div class="container mt-3 mb-5">
+  <a href="#" class="nav-link text-dark font-weight-bold active p-0 mb-2">Last added</a>
+	<div class="row">
+    <div class="MultiCarousel" data-items="2,3,5,6,8" data-slide="1" id="MultiCarousel"  data-interval="1000">
+      <div class="MultiCarousel-inner">
+          <%  lastaddedbooks.forEach(function(data){ %>
+              <div class="item lastadded" bookid="<%= data.bookid %>" availability="<%= data.availability %>" booktitle="<%= data.title %>" bookimage="<%= data.ImagePath %>" bookauthor="<%= data.author %>">
+                <div class="pad15 rounded-lg shadow-sm">
+                  <img class="img-fluid mx-auto d-block" src="<%= data.ImagePath %>" width="100px" height="150px">
+                  <p class="m-0 my-2 text-center"><%= data.title %></p>
+                  <h6 class="m-0 text-center"><%= data.author %></h6>
+                </div>
+            </div>
+          <% }) %>
+      </div>
+      <button class="btn btn-primary leftLst"><</button>
+      <button class="btn btn-primary rightLst">></button>
+  </div>
+	</div>
+</div>
+
+
+
+<!-- issue table -->
+<div class="container my-5">
+  <div class="row bg-white shadow-sm">
+      <h3 class="ml-3 my-3">Issued Books</h3>
+      <div class="col-12 overflow-auto">
+          <table class="table table-striped">
+              <tr>
+                  <th class="p-2">#</th>
+                  <th class="p-2">Image</th>
+                  <th class="p-2">Title</th>
+                  <th class="p-2">Author</th>
+                  <th class="p-2">Issued Date</th>
+                  <th class="p-2">Due Date</th>
+                  <th class="p-2">Status</th>
+              </tr>
+              <% for(var i=0;i<issuedbooks.length;i++){ %>
+              <tr>
+                <td style="vertical-align: middle;" class="id" bookid="<%= issuedbooks[i].bookid %>"><%= issuedbooks[i].bookid %></td>
+                  <td><img src="<%= issuedbooks[i].imagepath %>" width="70px"></td>
+                  <td style="vertical-align: middle;"><%= issuedbooks[i].title %></td>
+                  <td style="vertical-align: middle;"><%= issuedbooks[i].author %></td>
+                  <td style="vertical-align: middle;"><%= issuedbooks[i].issuedate %></td>
+                  <td style="vertical-align: middle;"><%= issuedbooks[i].duedate %></td>
+                  <% if(issuedbooks[i].fine > 0 ){ %>
+                  <td style="vertical-align: middle;"><p class="badge badge-danger px-2 py-1">Return <br>You have <%= issuedbooks[i].fine %>₹ fine!!</p></td>
+                  <% }else{ %>
+                    <td style="vertical-align: middle;"><p class="badge badge-success px-2 py-1">Return <br>You have <%= issuedbooks[i].fine %>₹ fine!!
+                  </p></td>
+                  <% } %>
+              </tr>
+              <% } %>
+          </table>
+      </div>
+  </div>
+</div>
+<%- include('../../partials/Student/realchat.ejs') -%>
+<script>
+  sessionStorage.setItem("firstname", '<%= user[0].firstname %>');
+  sessionStorage.setItem("lastname", '<%= user[0].lastname %>');
+  sessionStorage.setItem("address", '<%= user[0].address %>');
+  sessionStorage.setItem("type", '<%= user[0].type %>');
+  sessionStorage.setItem("regisdate", '<%= user[0].regisdate %>');
+  sessionStorage.setItem("email", '<%= user[0].email %>');
+  sessionStorage.setItem("profilepic", '<%= user[0].profilepic %>');
+  $(document).ready(function(){
+    $('.issuebook').each(function(){
+        $(this).click(function(){
+          var booktitle=$(this).attr("booktitle");
+          var bookauthor=$(this).attr("bookauthor");
+          var bookimage=$(this).attr("bookimage");
+          var bookid=$(this).attr("bookid");
+          var availability=$(this).attr("availability");
+          $.ajax({
+            type : "POST",
+            url: "/student/issuebookdata",
+            data:{
+              booktitle:booktitle,
+              bookauthor:bookauthor,
+              bookimage:bookimage,
+              bookid:bookid,
+              availability:availability
+            },
+            success:function(response){
+                if(response=="issued")
+                {
+                  window.location ="/student/bookissue/" + bookid;
+                }
+                else
+                {
+                  alert();
+                }
+            }
+          })
+        })
+    })
+  })
+
+
+  $(document).ready(function(){
+    $('.lastadded').each(function(){
+        $(this).click(function(){
+          var booktitle=$(this).attr("booktitle");
+          var bookauthor=$(this).attr("bookauthor");
+          var bookimage=$(this).attr("bookimage");
+          var bookid=$(this).attr("bookid");
+          var availability=$(this).attr("availability");
+          $.ajax({
+            type : "POST",
+            url: "/student/issuebookdata",
+            data:{
+              booktitle:booktitle,
+              bookauthor:bookauthor,
+              bookimage:bookimage,
+              bookid:bookid,
+              availability:availability
+            },
+            success:function(response){
+                if(response=="issued")
+                {
+                  window.location ="/student/bookissue/" + bookid;
+                }
+                else
+                {
+                  alert();
+                }
+            }
+          })
+        })
+    })
+  })
+</script>
+
+</body>
+
+</html>

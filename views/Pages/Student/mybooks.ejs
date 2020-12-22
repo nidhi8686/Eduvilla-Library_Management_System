@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
+  <link type="text/css" rel="stylesheet" href="/css/magicscroll.css" />
+  <script type="text/javascript" src="/js/magicscroll.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="/css/style.css">
+    <title>Eduvilla-Issued Books</title>
+    <style>
+      .search:focus{
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    </style>
+</head>
+<body class="bg-light">
+
+      <%- include('../../partials/Student/header.ejs') -%>
+      <%- include('../../partials/Student/searchbar.ejs') -%>
+      <div class="container-fluid position-absolute top" style="z-index:100;">
+        <div class="row">
+          
+          <div class="col-12 float-right">
+            <div class="float-right notification" style="width:fit-content;">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="container my-5">
+        <div class="row bg-white shadow-sm">
+            <h3 class="ml-3 my-3">Issued Books</h3>
+            <div class="col-12 overflow-auto">
+                <table class="table table-striped">
+                    <tr>
+                        <th class="p-2">#</th>
+                        <th class="p-2">Image</th>
+                        <th class="p-2">Title</th>
+                        <th class="p-2">Author</th>
+                        <th class="p-2">Issued Date</th>
+                        <th class="p-2">Due Date</th>
+                        <th class="p-2">Status</th>
+                    </tr>
+                    <% for(var i=0;i<issuedbooks.length;i++){ %>
+                    <tr>
+                      <td style="vertical-align: middle;" class="id" bookid="<%= issuedbooks[i].bookid %>"><%= issuedbooks[i].bookid %></td>
+                        <td><img src="<%= issuedbooks[i].imagepath %>" width="70px"></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].title %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].author %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].issuedate %></td>
+                        <td style="vertical-align: middle;"><%= issuedbooks[i].duedate %></td>
+                        <% if(issuedbooks[i].fine > 0 ){ %>
+                        <td style="vertical-align: middle;"><button class="btn btn-danger px-2 py-1 returnbook">Return <br>You have <%= issuedbooks[i].fine %>₹ fine!!</button></td>
+                        <% }else{ %>
+                          <td style="vertical-align: middle;"><button class="btn btn-success px-2 py-1 returnbook">Return <br>You have <%= issuedbooks[i].fine %>₹ fine!!
+                        </button></td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../../partials/Student/realchat.ejs') -%>
+    <script>
+       $(document).ready(function () {
+      $('.returnbook').click(function () {
+        var bookid=$('.id').attr("bookid");
+        $.ajax({
+          type: "POST",
+          url: '/student/returnbook',
+          data:{
+            bookid:bookid,
+          },
+          success: function (response) {
+            if (response.trim() == "done") {
+              $(".notification").html(
+                " <div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: rgb(33, 194, 33);'><i class='fa fa-check-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #32CD32'><h5 class='m-0'>Success</h5><p class='text-nowrap'>Book returned successfully!!</p></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            } else {
+              $(".notification").html(
+                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Error</h5><p class='text-nowrap'>Book not available!</p></div></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            }
+
+          }
+        })
+      })
+    })
+    </script>
+</body>
+</html>

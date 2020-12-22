@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
+  <link type="text/css" rel="stylesheet" href="/css/magicscroll.css" />
+  <script type="text/javascript" src="/js/magicscroll.js"></script>
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Dashboard-Student</title>
+  <style>
+    .search:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+
+<body class="bg-light">
+  
+  <%- include('../../partials/Student/header.ejs') -%>
+  <%- include('../../partials/Student/searchbar.ejs') -%>
+
+  <div class="container-fluid position-absolute top" style="z-index:100;">
+    <div class="row">
+      
+      <div class="col-12 float-right">
+        <div class="float-right notification" style="width:fit-content;">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-12 bg-white shadow-sm rounded-lg text-center">
+        <img src="/<%= bookdata[0].ImagePath %>" class="py-md-5 bookimage " width="250px">
+      </div>
+      <div class="col-lg-2 col-md-1 col-12"></div>
+      <div class="col-md-5 col-12 bg-white shadow-sm rounded-lg">
+        <table class="table table-striped mt-5 border-2">
+          <tr>
+            <th>Book ID</th>
+            <td class="id" bookid="<%= bookdata[0].bookid %>"><%= bookdata[0].bookid %></td>
+          </tr>
+          <tr>
+            <th>Title</th>
+            <td><%= bookdata[0].title %></td>
+          </tr>
+          <tr>
+            <th>Author</th>
+            <td><%= bookdata[0].author %></td>
+          </tr>
+          <tr>
+            <th>Publisher</th>
+            <td><%= bookdata[0].publisher %></td>
+          </tr>
+          <tr>
+            <th>Availability</th>
+            <% if( bookdata[0].availability == "Yes"){ %>
+            <td>
+              <h5><span class="badge badge-success p-2">Yes</span></h5>
+            </td>
+            <% } else { %>
+            <td>
+              <h5><span class="badge badge-danger p-2">No</span></h5>
+            </td>
+            <% } %>
+          </tr>
+          <tr>
+            <th>Issue Date</th>
+            <td><input type="date" id="issueDate" readonly></td>
+          </tr>
+          <tr>
+            <th>Due Date</th>
+            <td><input type="date" id="dueDate" readonly></td>
+          </tr>
+        </table>
+        <% if( bookdata[0].availability == "Yes"){ %>
+        <button class="btn btn-success float-right my-2 takebook">Take Book</button>
+        <% } else { %>
+        <button class="btn btn-danger float-right my-2 takebook">Taken</button>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../../partials/Student/realchat.ejs') -%>
+  <script>
+    $(document).ready(function () {
+      $('.takebook').click(function () {
+        var bookid=$('.id').attr("bookid");
+        $.ajax({
+          type: "POST",
+          url: '/student/takebook',
+          data:{
+            bookid:bookid,
+          },
+          success: function (response) {
+            if (response.trim() == "done") {
+              $(".notification").html(
+                " <div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: rgb(33, 194, 33);'><i class='fa fa-check-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #32CD32'><h5 class='m-0'>Success</h5><p class='text-nowrap'>Book issued successfully!!</p></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            } 
+            else if(response.trim()== "max-issued"){
+              $(".notification").html(
+                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Sorry</h5><p class='text-nowrap'>Can't issue more than four books</p></div></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            }
+            else {
+              $(".notification").html(
+                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Error</h5><p class='text-nowrap'>Book not available!</p></div></div></div>"
+                );
+              setTimeout(function () {
+                $(".notification").html("");
+              }, 2000)
+            }
+
+          }
+        })
+      })
+    })
+    $(document).ready(function() {
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;       
+    $("#issueDate").attr("value", today);
+
+    date.setDate(date.getDate() + 7);
+    
+
+    day = date.getDate();
+    month = date.getMonth() + 1;
+    year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var today = year + "-" + month + "-" + day;       
+    $("#dueDate").attr("value", today);
+});
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<div class="container p-0 bg-light shadow-lg animate__animated animate__slideInUp rounded-lg chatbox" style="display: none;">
+    <div class="container bg-white p-2 rounded-top shadow-sm">
+    <img src="/images/library.jpg" width="50px"><h2 class="font-nice d-inline ml-1">Eduvilla</h2>
+    </div>
+    <!-- <div class="container bg-white shadow-sm pb-2 rounded-lg fill_chat_detals" style="bottom: -10px; position: relative;">
+        <p class="pt-2">To start a chat, please enter your name and e-mail.</p>
+        <div class="row rounded-lg  d-flex justify-content-center align-items-center mx-1">
+            <form>
+                <input type="text" placeholder="Name" class="name form-control my-2" required>
+                <input type="email" placeholder="E-mail"  class="email form-control my-2"  required>
+                <button class="btn btn-light my-2 cancel" style="width: 100px;">Cancel</button>
+                <button class="btn btn-success my-2 start_chat" type="submit" style="width: 100px;">Start Chat</button>
+            </form>
+        </div>
+    </div> -->
+    <div class="message_area d-flex flex-column pt-4" style="height: 285px;overflow-y: auto;">
+        <!-- <div class="incoming message ml-2 mr-auto">
+            <h4>Nidhi</h4>
+            <p class="m-0">Lorem ipsum </p>
+        </div>
+        <div class="outgoing  ml-auto mr-2 message">
+            <h4>Nidhi</h4>
+            <p class="mb-0">hellohello</p>
+        </div> -->
+    </div>
+    <div class="d-flex align-items-center bg-white shadow-lg rounded-bottom">
+        <textarea id="textarea" class="rounded-bottom" rows="1" style="width:350px;" placeholder="Write a message..."></textarea>
+        <div>
+            <i class="mdi mdi-send pr-3" style="font-size: 30px;color:#8F8BE8;" user="<%= user[0].firstname %>"></i>
+        </div>
+    </div> 
+ </div>
+
+<div class="realchat bg-sidebar d-flex justify-content-center align-items-center rounded-circle">
+    <i class="fas fa-comment" style="font-size: 30px;color:white;"></i>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/client.js">
+
+</script>
+<script>
+    $(document).ready(function(){
+        $(".realchat").on("click",()=>{
+            var div=document.getElementsByClassName("chatbox");
+            if (div[0].style.display === "none") {
+             div[0].style.display = "block";
+             $(".realchat").html("<i class='fas fa-times' style='font-size: 30px;color:white;''></i>");
+            } else {
+             div[0].style.display = "none";
+             $(".realchat").html("<i class='fas fa-comment' style='font-size: 30px;color:white;''></i>");
+            }
+        })
+        $(".cancel").on("click",()=>{
+            var div=document.getElementsByClassName("chatbox");
+            if (div[0].style.display === "none") {
+             div[0].style.display = "block";
+             $(".realchat").html("<i class='fas fa-times' style='font-size: 30px;color:white;''></i>");
+            } else {
+             div[0].style.display = "none";
+             $(".realchat").html("<i class='fas fa-comment' style='font-size: 30px;color:white;''></i>");
+            }
+        })
+        $(".start_chat").on("click",(e)=>{
+            e.preventDefault();
+            var name=$(".name").val();
+            var email=$(".email").val();
+            $.ajax({
+                type:"POST",
+                url:"/chat_app",
+                data:{
+                    name:name,
+                    email:email
+                },
+                success:function(respose){
+                    if(respose.trim()=="connected")
+                    {
+                        $(".fill_chat_detals").html("");
+                        var div=document.getElementsByClassName("chatbox");
+                        div[0].style.display = "block";
+                        $(".realchat").html("<i class='fas fa-times' style='font-size: 30px;color:white;''></i>");
+                    }
+                }
+            })
+        })
+    })
+</script>
