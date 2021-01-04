@@ -43,6 +43,11 @@ app.get('/signup',(req,res)=>{
     res.render('signup');
 })
 
+app.get('/resetpassword',(req,res)=>{
+    res.render('resetpassword');
+})
+
+
 app.post('/',(req,res)=>{
     var email=req.body.email;
     var password=req.body.password;
@@ -62,7 +67,7 @@ app.post('/',(req,res)=>{
             else if(pass==password && type=="student")
             res.send("SuccessloginStudent");
             else
-            res.send("Incorrect Password .");
+            res.send("Incorrect Password.");
         }
         else{
             res.send("Your account doesn't exist.");
@@ -88,7 +93,17 @@ app.post('/signup',(req,res)=>{
      res.send('Success');
 })
 
+app.post('/resetpassword',(req,res)=>{
+    var email=req.body.email;
+    var password=req.body.password;
 
+    var sendData='UPDATE members SET password=? WHERE email=?'
+
+    db.query(sendData,[password,email],(err,result)=>{
+        if(err) throw err;
+    })
+     res.send('Success');
+})
 
 
 const io=require('socket.io')(http);

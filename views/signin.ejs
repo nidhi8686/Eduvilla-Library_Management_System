@@ -1,65 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/icon.png" type="image/gif">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <title>SignIn-Library Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sansita+Swashed:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.2.45/css/materialdesignicons.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/magicscroll.css" />
+    <script type="text/javascript" src="/js/magicscroll.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Eduvilla-SignIn</title>
 </head>
-<body style="background-image: url('images/signin.jpg');background-size: cover;">
-    <div class="d-flex align-items-center" style="height:100vh">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-4 col-md-2 col-sm-3"></div>
-                <div class="col-lg-4 col-md-8 col-sm-6 p-0 rounded-lg">
-                    <div class="card bg-trans text-center mx-5 pt-5">
-                        <div class="card-body">
-                            <h3>Eduvilla-SignIn</h3>
+
+<div class="container-fluid m-0 p-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow">
+        <a class="navbar-brand font-nice p-0 m-0" href="/student/dashboard">
+            <img src="images/library.jpg" width="50px">
+            <h2 class="font-nice d-inline ml-1">Eduvilla</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn text-white mr-3 my-2 my-lg-0" style="background-color: #03364f;" href='/'>SignIn</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn text-white" style="background-color: #03364f;" href='/signup'>SignUp</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<body class="bg-light">
+
+    <div class="container-fluid position-absolute additem_top" style="z-index:100;">
+        <div class="row">
+
+            <div class="col-12 float-right">
+                <div class="float-right notification" style="width:fit-content;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex justify-content-center align-items-center">
+
+
+        <div class="container p-md-5 rounded-lg ">
+            <!--style="background-color: #03364f;" -->
+
+            <div class="row bg-light rounded-lg m-3 shadow-lg">
+                <div class="col-lg-6 p-0 pt-4 d-flex justify-content-center align-items-center flex-column">
+                    <img src="images/pic.png" class="w-50">
+                    <p class="p-md-5 p-4">
+                        A library is a curated collection of sources of information and similar resources, selected
+                        by experts and made accessible to a defined community for reference or borrowing, often in a
+                        quiet environment
+                        conducive to study.
+                    </p>
+                </div>
+                <div style="background-image: url('images/signin.jpg');background-size:cover;"
+                    class="col-lg-6 col-md-12 py-3 rounded-lg d-flex justify-content-center align-items-center flex-column text-center">
+                    <div style="background-color: rgba(211, 207, 207, 0.5);"
+                        class="row rounded-lg py-3 px-lg-5 px-md-3">
+                        <div class="col-12">
+                            <h3 class="font-nice">Eduvilla-SignIn</h3>
                             <form class="form-signin">
-                                <input type="email" name="email" class="form-control mt-5 email" placeholder="Email"><br>
-                                <input type="password" name="password" class="form-control password" placeholder="Password"><br>
-                                <p class="res text-danger"></p>
-                                <button class="btn btn-success w-100" type="submit">Sign in</button>
-                                <a href="#" class="text-dark">Forgot Password?</a><br>
-                                <h3>OR</h3>
-                                <p>Don't have an account? <a href="/signup" class=" text-primary">Signup</a></p>
+                                <input type="email" name="email" class="form-control mt-4 w-100 email shadow-sm"
+                                    placeholder="Email"><br>
+                                <input type="password" name="password" class="form-control w-100 password shadow-sm"
+                                    placeholder="Password"><br>
+                                <button class="btn btn-success w-100" type="submit">Sign in</button><br>
+                                <a href="/resetpassword" class="pb-2 text-dark">Forgot Password?</a>
                             </form>
                         </div>
+
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-2 col-sm-3"></div>
             </div>
         </div>
     </div>
     <script>
-        $(document).ready(function(){
-            $('.form-signin').submit(function(e){
+        $(document).ready(function () {
+            $('.form-signin').submit(function (e) {
                 e.preventDefault();
-                var email=$(".email").val();
-                var password=$(".password").val();
+                var email = $(".email").val();
+                var password = $(".password").val();
                 $.ajax({
-                    type:"POST",
-                    url :'/',
-                    data:{
-                        email:email,
-                        password:password
+                    type: "POST",
+                    url: '/',
+                    data: {
+                        email: email,
+                        password: password
                     },
-                    success: function(response)
-                    {
-                        if(response.trim()=="SuccessloginTeacher")
-                        {
-                            window.location='/Admin/Dashboard'
-                        }
-                        else if(response.trim()=="SuccessloginStudent")
-                        {
-                            window.location='/Student/Dashboard'
-                        }
-                        else{
-                            $(".res").html(response);
+                    success: function (response) {
+                        if (response.trim() == "SuccessloginTeacher") {
+                            window.location = '/Admin/Dashboard'
+                        } else if (response.trim() == "SuccessloginStudent") {
+                            window.location = '/Student/Dashboard'
+                        } else if (response.trim() == "Incorrect Password.") {
+                            $(".notification").html(
+                                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Error</h5><p class='text-nowrap'>Incorrect Password!</p></div></div></div>"
+                            );
+                            setTimeout(function () {
+                                $(".notification").html("");
+                            }, 2000)
+                        } else {
+                            $(".notification").html(
+                                "<div class='row animate__animated animate__slideInRight'><div class='col-3 d-flex justify-content-center align-items-center' style='background-color: #F8210F'><i class='fas fa-times-circle text-light fa-2x'></i></div><div class='col-9 text-light pr-5 py-1' style='background-color: #FF392F;'><div><h5 class='m-0'>Error</h5><p class='text-nowrap'>Account does not exists!!</p></div></div></div>"
+                            );
+                            setTimeout(function () {
+                                $(".notification").html("");
+                            }, 2000)
                         }
                     }
                 })
@@ -67,4 +132,5 @@
         })
     </script>
 </body>
+
 </html>
