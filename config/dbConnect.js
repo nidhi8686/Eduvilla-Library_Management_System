@@ -1,10 +1,10 @@
 const mysql=require('mysql')
 
 const connect=mysql.createConnection({
-    host :"localhost",
-    user : "root",
-    password:"",
-    database :"library management system"
+    host     : "remotemysql.com",
+    user     : "8evbGsFC8U",
+    password : "wIqv9IMwWn",
+    database : "8evbGsFC8U"
 })
 
 module.exports=connect;
