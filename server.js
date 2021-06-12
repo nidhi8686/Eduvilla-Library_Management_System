@@ -33,6 +33,10 @@ db.connect((err)=>{
         return console.error("err "+err.message);
     }
     console.log("connected to database");
+
+    setInterval(function () {
+        db.query('SELECT 1')
+    }, 5000)
 })
 
 app.get('/',(req,res)=>{
@@ -90,7 +94,7 @@ app.post('/signup',(req,res)=>{
     db.query(sendData,[fname,lname,address,select,date,email,password],(err,result)=>{
         if(err) throw err;
     })
-     res.send('Success');
+    res.send('Success');
 })
 
 app.post('/resetpassword',(req,res)=>{
@@ -102,7 +106,7 @@ app.post('/resetpassword',(req,res)=>{
     db.query(sendData,[password,email],(err,result)=>{
         if(err) throw err;
     })
-     res.send('Success');
+    res.send('Success');
 })
 
 

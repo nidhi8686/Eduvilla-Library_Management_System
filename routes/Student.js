@@ -4,9 +4,6 @@ const router = express();
 
 router.use(express.static("public"));
 const db = require('../config/dbConnect');
-const {
-    get
-} = require('./admin');
 
 const API_KEY = "test_a17536cc9161c7cb2f6676ca584";
 
@@ -89,7 +86,7 @@ router.post('/search', (req, res) => {
     if (req.session.user) {
         var value = req.body.value;
         var category = req.body.category;
-        var getData = "SELECT * FROM BOOKS WHERE (title LIKE '%" + value + "%') OR  (author LIKE '%" + value + "%') OR (title LIKE '%" + category + "%')"
+        var getData = "SELECT * FROM books WHERE (title LIKE '%" + value + "%') OR  (author LIKE '%" + value + "%') OR (title LIKE '%" + category + "%')"
         db.query(getData, (err, result) => {
             if (err) throw err;
             res.send(result);
